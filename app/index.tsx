@@ -1,19 +1,30 @@
-import { View, Text, StyleSheet } from "react-native";
-import Button from "../components/Button";
+import { useEffect } from "react";
+import { View, Image, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
 
-export default function Index() {
+export default function SplashScreen() {
   const router = useRouter();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      router.replace("/Login"); // chuyển sang Login
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>🍔 Food Couriers</Text>
-      <Button title="Create Account" onPress={() => router.push("/signup")} />
-      <Button title="Login" type="secondary" onPress={() => router.push("/login")} />
+      <Image
+        source={require("../assets/images/home.png")}
+        style={styles.image}
+        resizeMode="contain"
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: "#fff", padding: 20 },
-  title: { fontSize: 28, fontWeight: "bold", marginBottom: 40 },
+  container: { flex: 1, justifyContent: "center", alignItems: "center" },
+  image: { width: "100%", height: "100%" },
 });
